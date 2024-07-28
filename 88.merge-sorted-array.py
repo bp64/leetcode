@@ -79,38 +79,35 @@ class Solution:
         """
         Do not return anything, modify nums1 in-place instead.
         """
+        # 1 O(n)
+        # step backwards through both arrays at the same time
+        # compare each value in each array and place the largest
+        # at the back of nums1
 
-        if nums2 == []:
-            return
+        # n, m = 0, 0, nums1 = [], nums2 = []
+        # n, m = 1, 0, nums1 = [1], nums2 = []
+        # n, m = 0, 1, nums1 = [0], nums2 = [1]
 
-        j = 0
-        k = 0
+        insertion_idx = m + n - 1
 
-        # ugh, I know that I shouldn't make a second copy but can't figure out how to do it in place
-        out: list[int] = [0 for i in range(n + m)]
-
-        for i in range(n + m):
-            if j == m:
-                out[i] = nums2[k]
-                k += 1
-                continue
-            if k == n:
-                out[i] = nums1[j]
-                j += 1
-                continue
-
-            if nums1[j] < nums2[k]:
-                v = nums1[j]
-                j += 1
-                out[i] = v
-
+        # iterate until we've finished seen all of nums1 or nums2
+        while (m != 0) and (n != 0):
+            if nums1[m - 1] >= nums2[n - 1]:
+                nums1[insertion_idx] = nums1[m - 1]
+                m -= 1
             else:
-                v = nums2[k]
-                k += 1
-                out[i] = v
+                nums1[insertion_idx] = nums2[n - 1]
+                n -= 1
+            insertion_idx -= 1
 
-        for i in range(n + m):
-            nums1[i] = out[i]
+        # if we've saw all of nums1 first, place the rest of nums2 in nums1
+        if m == 0:
+            while n != 0:
+                nums1[insertion_idx] = nums2[n - 1]
+                n -= 1
+                insertion_idx -= 1
+
+        # i don't think we need to handle the case where we see all of nums2, because the remaining numbers should already be accurately placed in nums1
 
 
 # @lc code=end
