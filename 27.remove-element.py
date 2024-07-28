@@ -90,10 +90,31 @@ class Solution:
         k = 0
         for i in range(len(nums), 0, -1):
             if nums[i - 1] == val:
-                nums.pop(i - 1)
+                del nums[i - 1]
+
+                # nums.pop(i-1)   -- beat  5% of submissions
+                # del nums[i - 1] -- beat 90% of submissions
+                # added some tests below the code to understand the difference
             else:
                 k += 1
         return k
 
 
 # @lc code=end
+
+# quick tests with python3.12
+
+# In [13]: %%timeit lst = list(range(100))
+#     ...: for i in range(len(lst),0,-1):
+#     ...:     del lst[i-1]
+#     ...:
+# 67.5 ns ± 0.14 ns per loop (mean ± std. dev. of 7 runs, 10,000,000 loops each)
+
+# In [14]: %%timeit lst = list(range(100))
+#     ...: for i in range(len(lst),0,-1):
+#     ...:     lst.pop(i-1)
+#     ...:
+# 65.4 ns ± 0.117 ns per loop (mean ± std. dev. of 7 runs, 10,000,000 loops each)
+
+# well, idky, could be leetcode uses an older implementation of python that doesn't have an optimization that 3.12 does or something about leetcodes hardware.
+# in theory pop should be slightly slower because you have to return an element, but here we're seeing that it's slightly faster
