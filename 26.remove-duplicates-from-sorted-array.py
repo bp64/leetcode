@@ -84,23 +84,40 @@
 # @lc code=start
 class Solution:
     def removeDuplicates(self, nums: list[int]) -> int:
-        # 1 O(n)
+        # 1 O(n) -- 71% of submissions
         # iterate through the list backwards
         # check if current element is same as previous element
         # if yes, remove, else continue
 
-        k = 0
-        for i in range(len(nums), 0, -1):
-            if i == len(nums):  # skip first element
-                k += 1
+        # k = 0
+        # for i in range(len(nums), 0, -1):
+        #     if i == len(nums):  # skip first element
+        #         k += 1
+        #         continue
+        #     if nums[i - 1] == nums[i]:
+        #         nums.pop(i - 1)
+        #     else:
+        #         k += 1
+        # return k
+
+        # 2 O(n) -- 98% of submissions, doesn't resize the array
+        # two pointers, one tracking the last unique idx,
+        # the other tracking the next comparison idx
+
+        # []
+        # [1,2,3]
+        # [1,2,2,3]
+        # [1,1,2,2,2,3,3]
+
+        i = 0
+        for j in range(1, len(nums)):
+            if nums[i] == nums[j]:
                 continue
-
-            if nums[i - 1] == nums[i]:
-                nums.pop(i - 1)
             else:
-                k += 1
+                nums[i + 1] = nums[j]
+                i += 1
 
-        return k
+        return i + 1
 
 
 # @lc code=end
