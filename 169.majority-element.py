@@ -43,7 +43,7 @@
 # @lc code=start
 class Solution:
     def majorityElement(self, nums: list[int]) -> int:
-        # O(n)
+        # O(n) time, O(n) space -- 50%
         # count all elements in list, then return the greatest
 
         # d = {}
@@ -52,25 +52,49 @@ class Solution:
         #         d[n] += 1
         #     else:
         #         d[n] = 1
-        # return max(d.items(), key=lambda x: x[1])[0]
+        # return max(d, key=d.get)
 
-        # O(n)
+        # O(n) time, O(n) space -- 45%
         # iterate through and count
-        # if value is greater then half, return
-        if len(nums) == 1:
-            return nums[0]
+        # if the value is greater then half, return
 
-        d = {}
-        target = len(nums) / 2
+        # if len(nums) == 1:
+        #     return nums[0]
+        # d = {}
+        # target = len(nums) / 2
+        # for n in nums:
+        #     if n not in d:
+        #         d[n] = 1
+        #         continue
+
+        #     d[n] += 1
+        #     if d[n] > target:
+        #         return n
+
+        # return None  # no majority found
+
+        # 3 Moores majority voting algorithm
+        # O(n) time, O(1) space
+        # ONLY WORKS WHEN FINDING MAJORITIES > N/2 + 1
+        # keep a count of if a candidate number
+        # is the same or not as the current number
+        # if yes, increment, if no decrement
+        # if the count drops to zero, use the current number as candidate and continue
+        # since we are guaranteed at least an N/2 + 1 majority
+        # we know the final candidate will be the true majority
+        count = 0
         for n in nums:
-            if n not in d:
-                d[n] = 1
-            else:
-                d[n] += 1
-                if d[n] > target:
-                    return n
+            if count == 0:
+                majority_candidate = n
+                count += 1
+                continue
 
-        return None  # no majority found
+            if n == majority_candidate:
+                count += 1
+            else:
+                count -= 1
+
+        return majority_candidate
 
 
 # @lc code=end
