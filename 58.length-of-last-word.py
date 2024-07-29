@@ -61,17 +61,32 @@ class Solution:
         # 1
         # O(n) -- 33%
         # iterate backwards, stop at first space after a seeing a word
+        # count = 0
+        # seen_word = False
+        # for i in range(len(s), 0, -1):
+        #     if s[i - 1] != " ":
+        #         count += 1
+        #         seen_word = True
+        #     else:
+        #         if seen_word:
+        #             return count
+        # return count
+
+        # 2
+        # rstrip -- 89%
+        # strip trailing spaces to guarantee last char is part of word
+        s = s.rstrip()
         count = 0
-        seen_word = False
         for i in range(len(s), 0, -1):
             if s[i - 1] != " ":
                 count += 1
-                seen_word = True
             else:
-                if seen_word:
-                    return count
-
+                return count
         return count
+
+        # 3
+        # pythonic oneliner -- 76%
+        # return len(s.rstrip().split(" ")[-1])
 
 
 # @lc code=end
