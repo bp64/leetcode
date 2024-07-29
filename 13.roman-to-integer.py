@@ -93,23 +93,42 @@ class Solution:
             "D": 500,
             "M": 1000,
         }
-        val = 0
-        i = 0
-        while i < len(s):
-            if i == len(s) - 1:
-                val += lookup[s[i]]
-                i += 1
-                continue
+        # 1
+        # O(n) -- 90%
+        # check element and element ahead and determine what number to add
+        # val = 0
+        # i = 0
+        # while i < len(s):
+        #     if i == len(s) - 1:
+        #         val += lookup[s[i]]
+        #         i += 1
+        #         continue
 
+        #     cur_val = lookup[s[i]]
+        #     next_val = lookup[s[i + 1]]
+
+        #     if cur_val < next_val:
+        #         val += next_val - cur_val
+        #         i += 2
+        #     else:
+        #         val += cur_val
+        #         i += 1
+        # return val
+
+        # 2
+        # O(n) -- 90%
+        # check the element ahead to determine whether to add or subtract the current element
+        val = 0
+        for i in range(len(s) - 1):
             cur_val = lookup[s[i]]
             next_val = lookup[s[i + 1]]
 
-            if cur_val < next_val:
-                val += next_val - cur_val
-                i += 2
-            else:
+            if next_val <= cur_val:
                 val += cur_val
-                i += 1
+            else:
+                val -= cur_val
+
+        val += lookup[s[-1]]
 
         return val
 
