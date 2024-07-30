@@ -50,7 +50,7 @@
 class Solution:
     def longestCommonPrefix(self, strs: list[str]) -> str:
         # 1
-        # O(n^2) - 96%
+        # O(n^2) - 96%, 42%
         # for each position in the prefix, check each char is the same
 
         if len(strs) == 0:
@@ -59,19 +59,15 @@ class Solution:
         if len(strs) == 1:
             return strs[0]
 
-        min_len = min([len(s) for s in strs])
         i = 0
-        while i < min_len:
-            prefix_char = strs[0][i]
-            not_equal = False
+        first_str = strs[0]
+        while i < len(first_str):
+            prefix_char = first_str[i]
             for s in strs[1:]:
-                if s[i] != prefix_char:
-                    not_equal = True
-                    break
-            if not_equal:
-                break
+                if (i >= len(s)) or (s[i] != prefix_char):
+                    return first_str[:i]
             i += 1
-        return strs[0][:i]
+        return first_str[:i]
 
 
 # @lc code=end
