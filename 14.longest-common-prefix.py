@@ -53,21 +53,42 @@ class Solution:
         # O(n^2) - 96%, 42%
         # for each position in the prefix, check each char is the same
 
+        # if len(strs) == 0:
+        #     return strs
+
+        # if len(strs) == 1:
+        #     return strs[0]
+
+        # i = 0
+        # first_str = strs[0]
+        # while i < len(first_str):
+        #     prefix_char = first_str[i]
+        #     for s in strs[1:]:
+        #         if (i >= len(s)) or (s[i] != prefix_char):
+        #             return first_str[:i]
+        #     i += 1
+        # return first_str[:i]
+
+        # 2
+        # O(nL) -- 96%
+        # sort, compare first and last strings
+        # sort is lexographic which is O(nL)
+
         if len(strs) == 0:
             return strs
 
         if len(strs) == 1:
             return strs[0]
 
-        i = 0
-        first_str = strs[0]
-        while i < len(first_str):
-            prefix_char = first_str[i]
-            for s in strs[1:]:
-                if (i >= len(s)) or (s[i] != prefix_char):
-                    return first_str[:i]
-            i += 1
-        return first_str[:i]
+        strs = sorted(strs)
+        first, last = strs[0], strs[-1]
+        max_len = min(len(first), len(last))
+        prefix = ""
+        for i in range(max_len):
+            if first[i] != last[i]:
+                break
+            prefix += first[i]
+        return prefix
 
 
 # @lc code=end
