@@ -50,7 +50,26 @@ class Solution:
     def strStr(self, haystack: str, needle: str) -> int:
         # 1
         # python implementation -- 72%
-        return haystack.find(needle)
+        # return haystack.find(needle)
+
+        # 2
+        # O(n^2) -- 71%
+        # iterate through haystack, compare char by char
+        # for i in range(len(haystack) - len(needle) + 1):
+        #     for j in range(len(needle)):
+        #         if haystack[i + j] != needle[j]:
+        #             break
+        #         if j == len(needle) - 1:
+        #             return i
+        # return -1
+
+        # 3
+        # O(n^2) -- 81%
+        # iterate through haystack, compare full str
+        for i in range(len(haystack) - len(needle) + 1):
+            if haystack[i : i + len(needle)] == needle:
+                return i
+        return -1
 
 
 # @lc code=end
