@@ -64,9 +64,27 @@ class Solution:
     def isPalindrome(self, s: str) -> bool:
         # O(n) - 88%
         # pythonic, convert to uppercase, remove non-alpha chars
-        s = s.upper()
-        s = "".join([c for c in s if c.isalnum()])
-        return s == s[::-1]
+        # s = s.upper()
+        # s = "".join([c for c in s if c.isalnum()])
+        # return s == s[::-1]
+
+        # O(n) -- 78%
+        # two pointer, check str from both sides
+        i = 0
+        j = len(s) - 1
+        while i < j:
+            if not s[i].isalnum():
+                i += 1
+                continue
+            if not s[j].isalnum():
+                j -= 1
+                continue
+            if s[i].upper() != s[j].upper():
+                return False
+            else:
+                i += 1
+                j -= 1
+        return True
 
 
 # @lc code=end
