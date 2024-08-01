@@ -46,14 +46,36 @@ class Solution:
         # 1
         # O(nm) - 72%
         # pythonic, iterate through note, remove from magazine, if exists
+        # for c in ransomNote:
+        #     idx = magazine.find(c)
+        #     if idx == -1:
+        #         return False
+        #     if idx == len(magazine) - 1:
+        #         magazine = magazine[:idx]
+        #     else:
+        #         magazine = magazine[:idx] + magazine[idx + 1 :]
+        # return True
+
+        # 2
+        # O(n+m) -- 16%
+        # convert both to dicts {char: count}, subtract
+        note = {}
         for c in ransomNote:
-            idx = magazine.find(c)
-            if idx == -1:
-                return False
-            if idx == len(magazine) - 1:
-                magazine = magazine[:idx]
+            if c not in note:
+                note[c] = 1
             else:
-                magazine = magazine[:idx] + magazine[idx + 1 :]
+                note[c] += 1
+
+        mag = {}
+        for c in magazine:
+            if c not in mag:
+                mag[c] = 1
+            else:
+                mag[c] += 1
+
+        for c in note:
+            if (c not in mag) or (mag[c] - note[c] < 0):
+                return False
         return True
 
 
