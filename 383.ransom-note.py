@@ -59,24 +59,39 @@ class Solution:
         # 2
         # O(n+m) -- 16%
         # convert both to dicts {char: count}, subtract
-        note = {}
-        for c in ransomNote:
-            if c not in note:
-                note[c] = 1
-            else:
-                note[c] += 1
+        # note = {}
+        # for c in ransomNote:
+        #     if c not in note:
+        #         note[c] = 1
+        #     else:
+        #         note[c] += 1
 
-        mag = {}
-        for c in magazine:
-            if c not in mag:
-                mag[c] = 1
-            else:
-                mag[c] += 1
+        # mag = {}
+        # for c in magazine:
+        #     if c not in mag:
+        #         mag[c] = 1
+        #     else:
+        #         mag[c] += 1
 
-        for c in note:
-            if (c not in mag) or (mag[c] - note[c] < 0):
-                return False
-        return True
+        # for c in note:
+        #     if (c not in mag) or (mag[c] - note[c] < 0):
+        #         return False
+        # return True
+
+        # 3
+        # O(n+m) -- 66%
+        # counters
+        from collections import Counter
+
+        # count each
+        note = Counter(ransomNote)
+        mag = Counter(magazine)
+
+        # find the intersection of the counters
+        # ie. min(note[c], mag[c])
+        # if the result == note, then there are enough
+        # elements to satisfy creating the note
+        return note & mag == note
 
 
 # @lc code=end
