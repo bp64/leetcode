@@ -52,21 +52,45 @@ class Solution:
         # O(n) -- 5%
         # iterate through one string, track the mapping to other
         # if the mapping is ever wrong return false
+        # if len(s) != len(t):
+        #     return False
+
+        # lookup = {}
+        # reverse_lookup = {}
+        # for i in range(len(s)):
+        #     match s[i] in lookup, t[i] in reverse_lookup:
+        #         case False, False:
+        #             lookup[s[i]] = t[i]
+        #             reverse_lookup[t[i]] = s[i]
+        #         case True, True:
+        #             if (lookup[s[i]] != t[i]) or (reverse_lookup[t[i]] != s[i]):
+        #                 return False
+        #         case _:
+        #             return False
+
+        # return True
+
+        # 2
+        # O(n) -- 5%
+        # iterate through one string, track the mapping to other
+
+        # 1
+        # O(n^2) -- 80%, pythonic
+        # iterate through one string, track the mapping to other
+        # if the mapping is ever wrong return false
         if len(s) != len(t):
             return False
 
         lookup = {}
-        reverse_lookup = {}
         for i in range(len(s)):
-            match s[i] in lookup, t[i] in reverse_lookup:
-                case False, False:
-                    lookup[s[i]] = t[i]
-                    reverse_lookup[t[i]] = s[i]
-                case True, True:
-                    if (lookup[s[i]] != t[i]) or (reverse_lookup[t[i]] != s[i]):
-                        return False
-                case _:
+            if s[i] not in lookup:
+                if t[i] in lookup.values():
                     return False
+                lookup[s[i]] = t[i]
+                continue
+
+            if lookup[s[i]] != t[i]:
+                return False
 
         return True
 
