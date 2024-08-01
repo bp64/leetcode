@@ -52,8 +52,6 @@ class Solution:
         # O(n) -- 5%
         # iterate through one string, track the mapping to other
         # if the mapping is ever wrong return false
-        # if len(s) != len(t):
-        #     return False
 
         # lookup = {}
         # reverse_lookup = {}
@@ -70,26 +68,18 @@ class Solution:
 
         # return True
 
-        # 2
-        # O(n) -- 5%
-        # iterate through one string, track the mapping to other
-
         # 1
-        # O(n^2) -- 80%, pythonic
+        # O(n^2) -- 93%, pythonic
         # iterate through one string, track the mapping to other
         # if the mapping is ever wrong return false
-        if len(s) != len(t):
-            return False
-
         lookup = {}
+        rlookup = {}
         for i in range(len(s)):
             if s[i] not in lookup:
-                if t[i] in lookup.values():
-                    return False
                 lookup[s[i]] = t[i]
-                continue
-
-            if lookup[s[i]] != t[i]:
+            if t[i] not in rlookup:
+                rlookup[t[i]] = s[i]
+            if (lookup[s[i]] != t[i]) or (rlookup[t[i]] != s[i]):
                 return False
 
         return True
