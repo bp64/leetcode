@@ -59,27 +59,44 @@
 class Solution:
     def wordPattern(self, pattern: str, s: str) -> bool:
         # 1
-        # O(n)
+        # O(n) -- 19%
         # similar to isomorphic-strings
         # split s by white space
         # iterate through pattern, track mappings from chars to words and words to chars
         # if word or char isn't in lookup, insert the map, ie. write once
         # then check what is in the lookup conforms with the current word
         # and vice versa
+
+        # words = s.split()
+        # if len(pattern) != len(words):
+        #     return False
+
+        # lookup = {}
+        # rlookup = {}
+        # for i, c in enumerate(pattern):
+        #     if c not in lookup:
+        #         lookup[c] = words[i]
+        #     if words[i] not in rlookup:
+        #         rlookup[words[i]] = c
+        #     if (lookup[c] != words[i]) or (rlookup[words[i]] != c):
+        #         return False
+        # return True
+
+        # 2
+        # O(n) -- 84%
+        # use set properties
+
         words = s.split()
+
+        # check there is a word for each char in pattern
         if len(pattern) != len(words):
             return False
 
-        lookup = {}
-        rlookup = {}
-        for i, c in enumerate(pattern):
-            if c not in lookup:
-                lookup[c] = words[i]
-            if words[i] not in rlookup:
-                rlookup[words[i]] = c
-            if (lookup[c] != words[i]) or (rlookup[words[i]] != c):
-                return False
-        return True
+        # check the number unique chars equals the number of unique words
+        # then check that equals the number of unique mappings
+        # ie. no character is mapped to two different words and vice-versa
+        mappings = set(zip(pattern, words))
+        return len(set(pattern)) == len(set(words)) == len(mappings)
 
 
 # @lc code=end
