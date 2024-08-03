@@ -47,12 +47,12 @@
 class Solution:
     def isAnagram(self, s: str, t: str) -> bool:
         # 1
-        # O(nlogn) -- 19%
+        # O(nlogn + mlogm) -- 19%
         # simple, sort both, see if they are the same
         # return sorted(s) == sorted(t)
 
         # 2
-        # O(n) -- 93.5%
+        # O(n+m) -- 93.5%
         # use counter data structure to compare
         # from collections import Counter
 
@@ -78,7 +78,7 @@ class Solution:
         # return count_s == count_t
 
         # 4
-        # O(n + m) -- 23%
+        # O(n+m) -- 23%
         # use a single array to track
         l = [0] * 26
         for c in s:
