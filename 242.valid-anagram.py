@@ -49,7 +49,14 @@ class Solution:
         # 1
         # O(nlogn) -- 19%
         # simple, sort both, see if they are the same
-        return sorted(s) == sorted(t)
+        # return sorted(s) == sorted(t)
+
+        # 2
+        # O(n) -- 93.5%
+        # use counter data structure to compare
+        from collections import Counter
+
+        return Counter(s) == Counter(t)
 
 
 # @lc code=end
