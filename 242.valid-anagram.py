@@ -61,21 +61,38 @@ class Solution:
         # 3
         # O(n+m) -- 72%
         # implement counter solution by hand
-        count_s = {}
-        count_t = {}
+        # count_s = {}
+        # count_t = {}
+        # for c in s:
+        #     if c not in count_s:
+        #         count_s[c] = 1
+        #     else:
+        #         count_s[c] += 1
+
+        # for c in t:
+        #     if c not in count_t:
+        #         count_t[c] = 1
+        #     else:
+        #         count_t[c] += 1
+
+        # return count_s == count_t
+
+        # 4
+        # O(n + m) -- 23%
+        # use a single array to track
+        l = [0] * 26
         for c in s:
-            if c not in count_s:
-                count_s[c] = 1
-            else:
-                count_s[c] += 1
-
+            idx = ord(c) % 26
+            l[idx] += 1
         for c in t:
-            if c not in count_t:
-                count_t[c] = 1
-            else:
-                count_t[c] += 1
-
-        return count_s == count_t
+            idx = ord(c) % 26
+            l[idx] -= 1
+            if l[idx] < 0:
+                return False
+        for v in l:
+            if v != 0:
+                return False
+        return True
 
 
 # @lc code=end
