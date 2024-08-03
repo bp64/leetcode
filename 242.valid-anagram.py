@@ -80,15 +80,35 @@ class Solution:
         # 4
         # O(n+m) -- 23%
         # use a single array to track
+        # l = [0] * 26
+        # for c in s:
+        #     idx = ord(c) % 26
+        #     l[idx] += 1
+        # for c in t:
+        #     idx = ord(c) % 26
+        #     l[idx] -= 1
+        #     if l[idx] < 0:
+        #         return False
+        # for v in l:
+        #     if v != 0:
+        #         return False
+        # return True
+
+        # 5
+        # O(n+m) -- 63%
+        # list index method without extra loop
+
+        length = len(s)
+        if length != len(t):
+            return False
+
         l = [0] * 26
-        for c in s:
-            idx = ord(c) % 26
-            l[idx] += 1
-        for c in t:
-            idx = ord(c) % 26
-            l[idx] -= 1
-            if l[idx] < 0:
-                return False
+        for i in range(length):
+            s_idx = ord(s[i]) % 26
+            t_idx = ord(t[i]) % 26
+            l[s_idx] += 1
+            l[t_idx] -= 1
+
         for v in l:
             if v != 0:
                 return False
