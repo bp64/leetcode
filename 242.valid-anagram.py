@@ -54,9 +54,28 @@ class Solution:
         # 2
         # O(n) -- 93.5%
         # use counter data structure to compare
-        from collections import Counter
+        # from collections import Counter
 
-        return Counter(s) == Counter(t)
+        # return Counter(s) == Counter(t)
+
+        # 3
+        # O(n+m) -- 72%
+        # implement counter solution by hand
+        count_s = {}
+        count_t = {}
+        for c in s:
+            if c not in count_s:
+                count_s[c] = 1
+            else:
+                count_s[c] += 1
+
+        for c in t:
+            if c not in count_t:
+                count_t[c] = 1
+            else:
+                count_t[c] += 1
+
+        return count_s == count_t
 
 
 # @lc code=end
