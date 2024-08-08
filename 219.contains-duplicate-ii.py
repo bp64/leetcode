@@ -55,7 +55,7 @@
 class Solution:
     def containsNearbyDuplicate(self, nums: list[int], k: int) -> bool:
         # 1
-        # O(n^2)
+        # O(n^2) - DNF
         # iterate through the array
         # only checking k distance apart or less elements for matches
         # if len(nums) < 2:
@@ -80,26 +80,44 @@ class Solution:
         # O(nlogn) -- 5%
         # sort arrays and idx of arrays then compare the similar numbers
 
+        # if len(nums) < 2:
+        #     return False
+        # if k < 1:
+        #     return False
+
+        # from operator import itemgetter
+
+        # sorted_nums = sorted(zip(nums, range(len(nums))), key=itemgetter(0, 1))
+
+        # prev_n = None
+        # prev_idx = None
+        # for i in range(len(sorted_nums)):
+        #     n, idx = sorted_nums[i]
+        #     if prev_n != n:
+        #         prev_n = n
+        #         prev_idx = idx
+        #     else:
+        #         if idx - prev_idx <= k:
+        #             return True
+        #         prev_idx = idx
+        # return False
+
+        # 3
+        # O(n) -- 77%
+        # iterate through, put val:idx in dict
+        # compare current idx to what was last seen
+
         if len(nums) < 2:
             return False
         if k < 1:
             return False
 
-        from operator import itemgetter
-
-        sorted_nums = sorted(zip(nums, range(len(nums))), key=itemgetter(0, 1))
-
-        prev_n = None
-        prev_idx = None
-        for i in range(len(sorted_nums)):
-            n, idx = sorted_nums[i]
-            if prev_n != n:
-                prev_n = n
-                prev_idx = idx
+        d = {}
+        for i, n in enumerate(nums):
+            if (n not in d) or (i - d[n] > k):
+                d[n] = i
             else:
-                if idx - prev_idx <= k:
-                    return True
-                prev_idx = idx
+                return True
         return False
 
 
