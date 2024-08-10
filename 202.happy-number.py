@@ -65,17 +65,35 @@ class Solution:
         # convert n to str, iterate through str
         # run calc on each digit to remake n
         # track what numbers have seen before, if seen False
+        # seen = set()
+        # while n != 1:
+        #     if n in seen:
+        #         return False
+        #     seen.add(n)
+
+        #     n = str(n)
+        #     m = 0
+        #     for c in n:
+        #         m += int(c) ** 2
+        #     n = m
+        # return True
+
+        # 2
+        # O(log(n)) -- 64%
+        # math version
+        def sum_of_squared_digits(n: int) -> int:
+            sum = 0
+            while n > 0:
+                sum += (n % 10) ** 2
+                n //= 10
+            return sum
+
         seen = set()
         while n != 1:
             if n in seen:
                 return False
             seen.add(n)
-
-            n = str(n)
-            m = 0
-            for c in n:
-                m += int(c) ** 2
-            n = m
+            n = sum_of_squared_digits(n)
         return True
 
 
