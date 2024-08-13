@@ -59,7 +59,34 @@ class Solution:
     def isPalindrome(self, x: int) -> bool:
         # 1
         # O(logn) -- 43%
-        return str(x) == str(x)[::-1]
+        # return str(x) == str(x)[::-1]
+
+        # 2
+        # O(logn) -- 8%
+        # without converting to str
+
+        # get len of x
+        # max val of x is 2^31 or 2,147,483,648
+        # so 10 digits
+
+        # negative values are never palindromic due to the sign
+        if x < 0:
+            return False
+
+        # go check len of the number
+        len_of_x = 1
+        while x // (10**len_of_x) != 0:
+            len_of_x += 1
+
+        # check val at each digit is symmetric
+        for idx in range(len_of_x // 2):
+            complement_idx = len_of_x - idx - 1
+            val_at_idx = (x // (10**idx)) % 10
+            val_at_complement_idx = (x // (10**complement_idx)) % 10
+            if val_at_idx != val_at_complement_idx:
+                return False
+
+        return True
 
 
 # @lc code=end
