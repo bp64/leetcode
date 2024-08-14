@@ -70,23 +70,38 @@ class Solution:
         # so 10 digits
 
         # negative values are never palindromic due to the sign
+        # if x < 0:
+        #     return False
+
+        # # go check len of the number
+        # len_of_x = 1
+        # while x // (10**len_of_x) != 0:
+        #     len_of_x += 1
+
+        # # check val at each digit is symmetric
+        # for idx in range(len_of_x // 2):
+        #     complement_idx = len_of_x - idx - 1
+        #     val_at_idx = (x // (10**idx)) % 10
+        #     val_at_complement_idx = (x // (10**complement_idx)) % 10
+        #     if val_at_idx != val_at_complement_idx:
+        #         return False
+
+        # return True
+
+        # 3
+        # O(logn) -- 39%
+        # build the number in reverse, then check they are equal
         if x < 0:
             return False
 
-        # go check len of the number
-        len_of_x = 1
-        while x // (10**len_of_x) != 0:
-            len_of_x += 1
+        temp = x
+        rev = 0
+        while temp != 0:
+            digit = temp % 10
+            rev = rev * 10 + digit
+            temp //= 10
 
-        # check val at each digit is symmetric
-        for idx in range(len_of_x // 2):
-            complement_idx = len_of_x - idx - 1
-            val_at_idx = (x // (10**idx)) % 10
-            val_at_complement_idx = (x // (10**complement_idx)) % 10
-            if val_at_idx != val_at_complement_idx:
-                return False
-
-        return True
+        return x == rev
 
 
 # @lc code=end
