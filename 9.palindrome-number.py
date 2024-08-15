@@ -91,17 +91,35 @@ class Solution:
         # 3
         # O(logn) -- 39%
         # build the number in reverse, then check they are equal
+        # if x < 0:
+        #     return False
+
+        # temp = x
+        # rev = 0
+        # while temp != 0:
+        #     digit = temp % 10
+        #     rev = rev * 10 + digit
+        #     temp //= 10
+
+        # return x == rev
+
+        # 4
+        # O(logn) -- 64%
+        # same as previous, but check half the number
         if x < 0:
             return False
 
-        temp = x
-        rev = 0
-        while temp != 0:
-            digit = temp % 10
-            rev = rev * 10 + digit
-            temp //= 10
+        # can't be palindromic if it has a leading zero
+        if (x != 0) and (x % 10) == 0:
+            return False
 
-        return x == rev
+        rev = 0
+        while x > rev:
+            digit = x % 10
+            rev = rev * 10 + digit
+            x //= 10
+
+        return (x == rev) or (x * 10 + digit == rev)
 
 
 # @lc code=end
