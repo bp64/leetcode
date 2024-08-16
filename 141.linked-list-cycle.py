@@ -82,18 +82,46 @@ class Solution:
         # 1
         # O(n) -- 52%
         # iterate through list, track of seen ids
+        # if head is None:
+        #     return False
+
+        # ids = set()
+
+        # while head.next is not None:
+        #     if id(head) in ids:
+        #         return True
+        #     ids.add(id(head))
+        #     head = head.next
+
+        # return False
+
+        # 2
+        # O(n) -- 14%
+        # O(1) memory
+        # two pointers, one iterating twice as fast as the other
+        # if a cycle exists, the two pointers will overlap
+        # if no cycle exists, the fast pointer finishes
+
         if head is None:
             return False
 
-        ids = set()
+        fast_node = head
+        if fast_node.next is None:
+            return False
+        fast_node = fast_node.next
 
-        while head.next is not None:
-            if id(head) in ids:
+        while True:
+            if id(head) == id(fast_node):
                 return True
-            ids.add(id(head))
             head = head.next
 
-        return False
+            if fast_node.next is None:
+                return False
+            fast_node = fast_node.next
+
+            if fast_node.next is None:
+                return False
+            fast_node = fast_node.next
 
 
 # @lc code=end
