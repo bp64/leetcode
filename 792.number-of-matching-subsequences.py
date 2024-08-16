@@ -58,18 +58,55 @@
 class Solution:
     def numMatchingSubseq(self, s: str, words: list[str]) -> int:
         # 1
-        # O(s*words*words[i])
+        # O(s*words*words[i]) -- time limit exceeded
         # iterate through s
         # check if char in s matches first char of each subsequence
         # if so, remove first char from subsequence
         # and if subsequence is now empty, add to count
+        # count = 0
+        # for c in s:
+        #     for i, word in enumerate(words):
+        #         if word and word[0] == c:
+        #             words[i] = word[1:]
+        #             if not words[i]:
+        #                 count += 1
+        # return count
+
+        # 2
+        # O(words + s * words * words[i]) -- 52%
+        # instead of iterating through words
+        # use a dict[[str, list[str]]] to keep track of the next char
+        # needed in the subsequence + the rest of the subsequence
+        # then, as chars are found in the subsequence,
+        # update the dict to reflect the next char needed
+        d = {}
+        for word in words:
+            if word[0] not in d:
+                d[word[0]] = [word[1:]]
+            else:
+                d[word[0]].append(word[1:])
+
         count = 0
         for c in s:
-            for i, word in enumerate(words):
-                if word and word[0] == c:
-                    words[i] = word[1:]
-                    if not words[i]:
-                        count += 1
+            if c not in d:
+                continue
+
+            temp = []
+            for subseq in d[c]:
+                if subseq == "":
+                    count += 1
+                    continue
+
+                if subseq[0] == c:
+                    temp.append(subseq[1:])
+                else:
+                    if subseq[0] not in d:
+                        d[subseq[0]] = [subseq[1:]]
+                    else:
+                        d[subseq[0]].append(subseq[1:])
+
+            d[c] = temp
+
         return count
 
 
