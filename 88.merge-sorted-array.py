@@ -79,7 +79,7 @@ class Solution:
         """
         Do not return anything, modify nums1 in-place instead.
         """
-        # 1 O(n)
+        # 1 O(n + m)
         # step backwards through both arrays at the same time
         # compare each value in each array and place the largest
         # at the back of nums1
