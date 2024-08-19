@@ -57,7 +57,7 @@ class TreeNode:
 
 class Solution:
     # 1
-    # O(n) -- 33%
+    # O(n) -- 75%
     # recurse through tree, checking if each node is symmetric
     def isSymmetric(self, root: Optional[TreeNode]) -> bool:
         return self.sym(root.left, root.right)
@@ -65,12 +65,14 @@ class Solution:
     def sym(self, r1: Optional[TreeNode], r2: Optional[TreeNode]) -> bool:
         if not r1 and not r2:
             return True
-        if (r1 and not r2) or (not r1 and r2):
-            return False
-        if r1.val != r2.val:
+        if not r1 or not r2:
             return False
 
-        return self.sym(r1.left, r2.right) and self.sym(r1.right, r2.left)
+        return (
+            r1.val == r2.val
+            and self.sym(r1.left, r2.right)
+            and self.sym(r1.right, r2.left)
+        )
 
 
 # @lc code=end
