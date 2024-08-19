@@ -63,8 +63,6 @@ class Solution:
         # returning max depth of each child
         if root is None:
             return 0
-        if (root.left is None) and (root.right is None):
-            return 1
 
         left_depth = self.maxDepth(root.left)
         right_depth = self.maxDepth(root.right)
