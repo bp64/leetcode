@@ -73,12 +73,36 @@ class Solution:
         # 1
         # O(n) -- 34%
         # naive, dfs
-        if not root:
-            return 0
-        if not root.left and not root.right:
-            return 1
+        # if not root:
+        #     return 0
+        # if not root.left and not root.right:
+        #     return 1
 
-        return self.countNodes(root.left) + self.countNodes(root.right) + 1
+        # return self.countNodes(root.left) + self.countNodes(root.right) + 1
+
+        # 2
+        # O(log^2(n))
+        # binary search the leaf nodes to find the last leaf
+
+        depth = self.calc_depth(root)
+
+        # the number of nodes in a full binary tree
+        # can be labeled with a bit string
+        # with a depth 3 tree (2^3 nodes)
+        # where the first node is 000, the last is 111
+
+        # number of nodes in a complete tree is
+        # (2^depth) - 1
+        # nodes at level = 2^(depth-1)
+        return
+
+    def calc_depth(root: Optional[TreeNode]) -> int:
+        depth = 0
+        n = root
+        while n:
+            depth += 1
+            n = n.left
+        return depth
 
 
 # @lc code=end
