@@ -66,31 +66,59 @@ class Solution:
         # O(n) -- 96%
         # use bfs with a queue and track avgs with a list
         # deques are O(1) to pop(0), where lists are O(n)
+        # queue: deque[TreeNode] = deque()
+        # avgs: list[float] = []
+
+        # root.depth = 0
+        # queue.append(root)
+
+        # count = 0
+        # sum = 0
+        # while queue:
+        #     n = queue.popleft()
+
+        #     if n.left:
+        #         n.left.depth = n.depth + 1
+        #         queue.append(n.left)
+        #     if n.right:
+        #         n.right.depth = n.depth + 1
+        #         queue.append(n.right)
+
+        #     count += 1
+        #     sum += n.val
+
+        #     if not queue or queue[0].depth != n.depth:
+        #         avgs.append(sum / count)
+        #         count = 0
+        #         sum = 0
+
+        # return avgs
+
+        # 2
+        # O(n) -- 68%
+        # bfs, add each level to queue then process all nodes, repeat
+        # O(logn) memory
         queue: deque[TreeNode] = deque()
         avgs: list[float] = []
 
-        root.depth = 0
         queue.append(root)
 
-        count = 0
-        sum = 0
         while queue:
-            n = queue.popleft()
+            lenq = len(queue)
+            count = 0
+            total = 0
+            for _ in range(lenq):
+                n = queue.popleft()
 
-            if n.left:
-                n.left.depth = n.depth + 1
-                queue.append(n.left)
-            if n.right:
-                n.right.depth = n.depth + 1
-                queue.append(n.right)
+                if n.left:
+                    queue.append(n.left)
+                if n.right:
+                    queue.append(n.right)
 
-            count += 1
-            sum += n.val
+                count += 1
+                total += n.val
 
-            if not queue or queue[0].depth != n.depth:
-                avgs.append(sum / count)
-                count = 0
-                sum = 0
+            avgs.append(total / count)
 
         return avgs
 
